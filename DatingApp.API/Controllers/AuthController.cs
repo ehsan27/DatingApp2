@@ -28,11 +28,6 @@ namespace DatingApp.API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            // if(!ModelState.IsValid){
-            //     return BadRequest(ModelState);
-            // }
-
-            //validate request
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
             if(await _repo.UserExists(userForRegisterDto.Username)){
@@ -59,8 +54,8 @@ namespace DatingApp.API.Controllers
             }
 
             var claims = new[]{
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+            new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+            new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
@@ -83,4 +78,5 @@ namespace DatingApp.API.Controllers
             });
         }
     }
+
 }
